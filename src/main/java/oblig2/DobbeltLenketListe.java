@@ -50,6 +50,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         this();  // alle variabelene er nullet
 
+        Objects.requireNonNull(a, "Tabellen a er null");
+
         // Finner den første i a som ikke er null
 
         int i = 0; // plassen til første verdi som ikke er null
@@ -57,16 +59,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         for (; i < a.length && a[i] == null; i++) ;
 
         if (i < a.length) { // hvis alle har verdien null så vil i == a.length
-            Node<T> current = new Node<>(a[i], null, null);// den første noden
-            hode = current;
-
+            hode = new Node<>(a[i], null, null);// den første noden
             antall = 1;                                 // vi har minst en node
 
+            Node<T> current = hode;
 
-            for (i++; i < a.length; i++) {
+            for (i = i + 1; i < a.length; i++) {
                 if (a[i] != null) {
-                    current = new Node<>(a[i], current, null);   // en ny node
-                    current.neste = current;
+                    Node<T> next = new Node<>(a[i], current, null);   // en ny node
+                    current.neste = next;
+                    current = next;
                     antall++;
                 }
             }
@@ -89,8 +91,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+    public boolean leggInn(T verdi) {// verdi legges bakerst
+        Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
+
+        if (antall == 0) hode = hale = new Node<>(verdi, null, null);  // tom liste
+        else hale = hale.neste = new Node<>(verdi, hale, null);  // legges bakerst
+
+        antall++;        // en mer i listen
+        endringer++;      // en endring mer på listen
+        return true;     // vellykket innlegging
     }
 
     @Override
@@ -149,12 +158,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 s.append(',').append(' ').append(p.verdi);
                 p = p.neste;
             }
-
         }
         s.append(']');
 
         return s.toString();
     }
+
 
     public String omvendtString() {
         StringBuilder s = new StringBuilder();
