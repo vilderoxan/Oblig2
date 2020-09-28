@@ -100,6 +100,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;        // en mer i listen
         endringer++;      // en endring mer på listen
         return true;     // vellykket innlegging
+        //Oppgave 2b ferdig
     }
 
     @Override
