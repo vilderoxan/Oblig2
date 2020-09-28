@@ -48,7 +48,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        this();  // alle variabelene er nullet
+
+        // Finner den første i a som ikke er null
+
+        int i = 0; // plassen til første verdi som ikke er null
+
+        for (; i < a.length && a[i] == null; i++) ;
+
+        if (i < a.length) { // hvis alle har verdien null så vil i == a.length
+            Node<T> current = new Node<>(a[i], null, null);// den første noden
+            hode = current;
+
+            antall = 1;                                 // vi har minst en node
+
+
+            for (i++; i < a.length; i++) {
+                if (a[i] != null) {
+                    current = new Node<>(a[i], current, null);   // en ny node
+                    current.neste = current;
+                    antall++;
+                }
+            }
+            hale = current;
+        }
     }
 
     public Liste<T> subliste(int fra, int til) {
