@@ -113,9 +113,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    private Node<T> finnNode(int indeks) {
+
+        Node<T> n = null;
+
+        int midten = antall / 2;
+        if (indeks < midten) {
+            Node<T> p = hode;
+            for (int i = 0; i < midten; i++) {
+                if (i == indeks) {
+                    n = p;
+                }
+                p = p.neste;
+            }
+        } else {
+            for (int i = antall - 1; i >= midten; i--) {
+                Node<T> p = hale;
+                if (i == indeks) {
+                    n = p;
+                }
+                p = p.forrige;
+            }
+        }
+        return n;
+    }
+
+
+    /*
+    Lag
+    deretter metoden public T hent(int indeks) ved å bruke finnNode () . Pass på
+    at indeks sjekkes. Bruk metoden indeksKontroll () som arves fra Liste (bruk false som
+    parameter)
+     */
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);  // false: indeks = antall er ulovlig
+        return finnNode(indeks).verdi;
     }
 
     @Override
