@@ -82,14 +82,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         int antall = 0;
 
+        if (tom() || fra == til) {
+            return subliste;
+        }
+
         Node<T> current = hode;
 
         for (int i = 0; i <= fra; i++) { //Legger til noden på plass fra
             if (i != fra) {
                 current = current.neste;
             }
-            subliste.leggInn(current.verdi);
         }
+        subliste.leggInn(current.verdi);
 
         current = current.neste;
 
