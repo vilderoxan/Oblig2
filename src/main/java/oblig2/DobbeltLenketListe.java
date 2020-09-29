@@ -151,10 +151,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
-    }
+
 
     private Node<T> finnNode(int indeks) {
         int midten = antall / 2;
@@ -212,12 +209,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return -1;
     }
 
+    @Override
+    public boolean inneholder(T verdi) {
+        return indeksTil(verdi) != -1;
+    }
 
 
-    /* Den skal erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før.
-    Husk at indeks må sjekkes, at null-verdier ikke skal kunne legges inn og at variabelen
-    endringer skal økes.
-     */
+
     @Override
     public T oppdater(int indeks, T nyverdi) {
         Objects.requireNonNull(nyverdi, "null er ulovlig!");
