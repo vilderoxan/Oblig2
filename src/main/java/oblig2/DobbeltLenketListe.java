@@ -148,9 +148,50 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
-    }
+        Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
+        indeksKontroll2(indeks, true);
 
+        if (antall == 0) {
+            hode = hale = new Node<>(verdi, null, null);
+        } else if (indeks == 0) {
+            hode = hode.forrige = new Node<>(verdi, null, hode);
+        } else if (indeks == antall) {
+            hale = hale.neste = new Node<>(verdi, hale, null);
+        } else {
+            Node<T> p = hode;                  // current flyttes indeks - 1 ganger
+            for (int i = 1; i < indeks; i++) { //Legges mellom to noder
+                p = p.neste;
+            }
+            p.forrige = p.forrige.neste = new Node<>(verdi, p.forrige, p);
+
+            /*
+
+            if (indeks >= 0 || indeks <= antall) {
+
+                if (indeks == 0) {                 // ny verdi skal ligge først
+                    hode = hale = new Node<>(verdi, null, hode);    // legges først
+
+                } else if (indeks == antall) {        // ny verdi skal ligge bakerst
+                    n.forrige = hale;
+                    hale.neste = n;
+                    hale = n;
+                } else {
+                    Node<T> p = hode;                  // current flyttes indeks - 1 ganger
+                    for (int i = 1; i < indeks; i++) { //Legges mellom to noder
+                        p = p.neste;
+                    }
+                    p.forrige = p.forrige.neste = n;
+
+
+                }
+
+             */
+            antall++;                            // listen har fått en ny verdi
+            endringer++;                         //Listen har en ny endring
+
+        }
+
+    }
 
 
     private Node<T> finnNode(int indeks) {
@@ -176,12 +217,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-    /*
-    Lag
-    deretter metoden public T hent(int indeks) ved å bruke finnNode () . Pass på
-    at indeks sjekkes. Bruk metoden indeksKontroll () som arves fra Liste (bruk false som
-    parameter)
-     */
     @Override
     public T hent(int indeks) {
         indeksKontroll(indeks, false);  // false: indeks = antall er ulovlig
@@ -194,14 +229,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        if(verdi == null){
+        if (verdi == null) {
             return -1;
         }
 
         Node<T> current = hode;
 
-        for(int i = 0; i < antall; i++){
-            if(current.verdi.equals(verdi)){
+        for (int i = 0; i < antall; i++) {
+            if (current.verdi.equals(verdi)) {
                 return i;
             }
             current = current.neste;
@@ -213,8 +248,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean inneholder(T verdi) {
         return indeksTil(verdi) != -1;
     }
-
-
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
@@ -230,16 +263,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return gammelVerdi;
     }
 
-    /*
-      Node<T> p = finnNode(indeks);
-         T gammelVerdi = p.verdi;
 
-         p.verdi = verdi;
-         return gammelVerdi;
-
-     T gammelverdi = a[indeks];      // tar vare på den gamle verdien
-     a[indeks] = verdi;              // oppdaterer
-         return gammelverdi;             // returnerer den gamle verdien*/
     @Override
     public boolean fjern(T verdi) {
         throw new UnsupportedOperationException();
