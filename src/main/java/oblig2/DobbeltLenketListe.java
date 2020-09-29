@@ -77,9 +77,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        fratilKontroll(antall, fra, til);
+
+        DobbeltLenketListe<T> subliste = new DobbeltLenketListe<>();
+
+        if (tom() || fra == til) {
+            return subliste;
+        }
+
+        int antall = 0;
+
+        Node<T> current = hode;
+
+        for (int i = 0; i <= fra; i++) { //Legger til noden på plass fra
+            if (i != fra) {
+                current = current.neste;
+            }
+        }
+        subliste.leggInn(current.verdi);
+
+        current = current.neste;
+
+        for (int i = fra + 1; i < til; i++) {
+            subliste.leggInn(current.verdi);
+            current = current.neste;
+        }
+
+        this.endringer = 0;
+
+        return subliste;
     }
 
+    private static void fratilKontroll(int antall, int fra, int til) {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + antall + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+
+    }
     @Override
     public int antall() {
         return this.antall;
@@ -172,16 +214,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     }
-   /*
-     Node<T> p = finnNode(indeks);
-        T gammelVerdi = p.verdi;
 
-        p.verdi = verdi;
-        return gammelVerdi;
-
-    T gammelverdi = a[indeks];      // tar vare på den gamle verdien
-    a[indeks] = verdi;              // oppdaterer
-        return gammelverdi;             // returnerer den gamle verdien*/
     @Override
     public boolean fjern(T verdi) {
         throw new UnsupportedOperationException();

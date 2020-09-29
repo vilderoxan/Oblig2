@@ -5,7 +5,7 @@ public class Main {
 
         String[] s1 = {};
         String[] s2 = {"A"};
-        String[] s3 = {null, "A", null, "B", null, "C"};
+        String[] s3 = {null, "A", null, "B", null, "C" , "D", "E"};
 
 
 
