@@ -197,8 +197,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null){
+            return -1;
+        }
+
+        Node<T> current = hode;
+
+        for(int i = 0; i < antall; i++){
+            if(current.verdi.equals(verdi)){
+                return i;
+            }
+            current = current.neste;
+        }
+        return -1;
     }
+
 
 
     /* Den skal erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før.
