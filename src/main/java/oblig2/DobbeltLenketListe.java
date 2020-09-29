@@ -149,25 +149,49 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void leggInn(int indeks, T verdi) {
         Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
+        indeksKontroll2(indeks, true);
 
-        indeksKontroll(indeks, true);        // true: indeks = antall er lovlig
-
-        if (indeks == 0) {                 // ny verdi skal ligge først
-            hode = new Node<>(verdi, null, hode.neste);    // legges først
-            if (antall == 0) hale = hode;      // hode og hale peker på samme node hvis listen er tom
-        } else if (indeks == antall)    {        // ny verdi skal ligge bakerst
-            hale = hale.neste = new Node<>(verdi, hale.forrige, null);  // legges bakerst
+        if (antall == 0) {
+            hode = hale = new Node<>(verdi, null, null);
+        } else if (indeks == 0) {
+            hode = hode.forrige = new Node<>(verdi, null, hode);
+        } else if (indeks == antall) {
+            hale = hale.neste = new Node<>(verdi, hale, null);
         } else {
-            Node<T> current = hode;                  // current flyttes indeks - 1 ganger
+            Node<T> p = hode;                  // current flyttes indeks - 1 ganger
             for (int i = 1; i < indeks; i++) { //Legges mellom to noder
-                current = current.neste;
+                p = p.neste;
             }
-            current.neste = new Node<>(verdi, current, current.neste);  // verdi settes inn i listen
-        }
-        antall++;                            // listen har fått en ny verdi
-        endringer++;
-    }
+            p.forrige = p.forrige.neste = new Node<>(verdi, p.forrige, p);
 
+            /*
+
+            if (indeks >= 0 || indeks <= antall) {
+
+                if (indeks == 0) {                 // ny verdi skal ligge først
+                    hode = hale = new Node<>(verdi, null, hode);    // legges først
+
+                } else if (indeks == antall) {        // ny verdi skal ligge bakerst
+                    n.forrige = hale;
+                    hale.neste = n;
+                    hale = n;
+                } else {
+                    Node<T> p = hode;                  // current flyttes indeks - 1 ganger
+                    for (int i = 1; i < indeks; i++) { //Legges mellom to noder
+                        p = p.neste;
+                    }
+                    p.forrige = p.forrige.neste = n;
+
+
+                }
+
+             */
+            antall++;                            // listen har fått en ny verdi
+            endringer++;                         //Listen har en ny endring
+
+        }
+
+    }
 
 
     private Node<T> finnNode(int indeks) {
