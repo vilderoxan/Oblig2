@@ -133,6 +133,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return antall == 0;
     }
 
+    //Hvorfor skal metoden alltid returnere true? Da kan den like så gjerne være void!
+
     @Override
     public boolean leggInn(T verdi) {// verdi legges bakerst
         Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
@@ -149,9 +151,54 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void leggInn(int indeks, T verdi) {
         Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
-        indeksKontroll2(indeks, true);
 
-        if (antall == 0) {
+        indeksKontroll(indeks, true);        // true: indeks = antall er lovlig
+
+        Node<T> q = new Node<>(verdi);
+
+        if (indeks == antall) {
+            // ingen noder skal flyttes
+            if (antall == 0) {
+                // ingen noder fra før
+                hode = q;
+            } else {
+                // putt inn bakerst
+                q.forrige = hale;
+                hale.neste = q;
+            }
+            hale = q;
+        } else {
+            // fletting / node må flyttes
+            Node<T> r = finnNode(indeks);
+            q.neste = r;
+
+            if (r.forrige == null) {
+                // flytt var hode - erstatt med ny
+                hode = q;
+            } else {
+                // flytt var ikke hode
+                r.forrige.neste = q;
+                q.forrige = r.forrige;
+            }
+            r.forrige = q;
+        }
+
+        antall++;                            // listen har fått en ny verdi
+        endringer++;                         // listen har en ny endring
+    }
+
+
+/*
+void insert ( Node p, Node, q, Node r) {
+	p.next = q;
+	q.next = r;
+	r.prew = q;
+	q.prew = p;
+}
+ */
+
+    /*
+       if (antall == 0) {
             hode = hale = new Node<>(verdi, null, null);
         } else if (indeks == 0) {
             hode = hode.forrige = new Node<>(verdi, null, hode);
@@ -185,13 +232,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
                 }
 
-             */
+
             antall++;                            // listen har fått en ny verdi
-            endringer++;                         //Listen har en ny endring
+                    endringer++;                         //Listen har en ny endring
 
-        }
-
-    }
+                    */
 
 
     private Node<T> finnNode(int indeks) {
