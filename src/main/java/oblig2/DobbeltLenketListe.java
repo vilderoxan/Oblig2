@@ -373,8 +373,49 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        Node<T> p = hode;
+        Node<T> q = null;
+
+
+        while (p != null) {
+            q = p.neste;
+            p.neste = null;
+            p.verdi = null;
+            p.forrige = null;
+            p = q;
+        }
+        hode = hale = null;
+        antall = 0;
+        endringer++;
     }
+
+    public void nullstill2() {
+        for (int i = 0; i < antall; i++) {
+            fjern(i);
+        }
+        hode = hale = null;
+        antall = 0;
+        endringer++;
+    }
+
+
+
+    /*
+     @Override
+    public void nullstill() {
+        Node<T> p = hode, q = null;
+
+        while (p != null) {
+            q = p.neste;
+            p.neste = null;
+            p.verdi = null;
+            p = q;
+        }
+
+        hode = hale = null;
+        antall = 0;
+    }
+     */
 
     @Override
     public String toString() {
