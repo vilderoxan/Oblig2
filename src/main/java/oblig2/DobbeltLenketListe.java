@@ -260,7 +260,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        
+        if (verdi == null) {    // ingen nullverdier i listen
+            return false;
+        }
+
+        Node<T> n = hode, prev = null; // hjelpepekere
+
+        while (n != null) { // q skal finne verdien t
+            if (n.verdi.equals(verdi)) {
+                break;
+            }
+            prev = n;
+            n = n.neste;
+        }
+
+        if (n == null) {   // fant ikke verdi
+            return false;
+        } else if (n == hode) {
+            hode = hode.neste;
+        } else {
+            prev.neste = n.neste;
+        }
+
+        if (n == hale) {
+            hale = prev;
+        }
+
+        n.verdi = null;
+        n.neste = null;
+
+        endringer++;                        // fjerning er en endring
+        antall--;
+
+        return true;
+
+         
     }
 
     // Skal fjerne (og returnere) verdien på posisjon indeks (som først må sjekkes).
@@ -298,9 +333,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             r.forrige = p;
         }
 
+        if (antall == 0) {
+            hode = hale = null;
+        }
+
 
         antall--;
         endringer++;
+
 
         return n.verdi;
     }

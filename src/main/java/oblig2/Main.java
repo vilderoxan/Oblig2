@@ -11,11 +11,9 @@ public class Main {
         liste.leggInn(4);
 
 
-        liste.leggInn(0, 10);
+        liste.fjern(0);
         System.out.println(liste);
-        liste.leggInn(4, 10);
-        System.out.println(liste);
-        liste.leggInn(2, 10);
+        liste.fjern(1);
         System.out.println(liste);
     }
 }
