@@ -465,7 +465,12 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            Node<T> n = finnNode(indeks);
+            denne = n;
+
+            denne = hode;     // p starter på den første i listen
+            fjernOK = false;  // blir sann når next() kalles
+            iteratorendringer = endringer;  // teller endringer
         }
 
         @Override
