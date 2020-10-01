@@ -263,9 +263,46 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    // Skal fjerne (og returnere) verdien på posisjon indeks (som først må sjekkes).
+
+    /*I begge metodene må du passe på tilfellene 1) den første fjernes, 2) den siste fjernes og 3)
+    en verdi mellom to andre fjernes. Alle neste- og forrige-pekere må være korrekte etter
+    fjerningen. Variabelen antall skal også reduseres og variabelen endringer økes. Sjekk
+    også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet. Bruk
+    metodene toString() og omvendtString() til å sjekke at alle pekerne er satt riktig.
+
+     */
+
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+
+        if (antall == 0) {
+            throw new IndexOutOfBoundsException("listen er tom");
+        }
+
+        Node<T> n = finnNode(indeks);
+
+
+        if (indeks == 0) {
+            hode = n.neste;
+            n.neste.forrige = null;
+        } else if (n.neste == null) {
+            hale = n.forrige;
+            n.forrige.neste = null;
+        } else {
+            Node<T> p = n.forrige;
+            Node<T> r = n.neste;
+
+            p.neste = r;
+            r.forrige = p;
+        }
+
+
+        antall--;
+        endringer++;
+
+        return n.verdi;
     }
 
     @Override

@@ -8,6 +8,7 @@ public class Main {
         liste.leggInn(1);
         liste.leggInn(2);
         liste.leggInn(3);
+        liste.leggInn(4);
 
 
         liste.leggInn(0, 10);
