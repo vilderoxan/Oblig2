@@ -4,6 +4,7 @@ package oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import javax.swing.*;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
@@ -258,44 +259,64 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
+    /*
+I begge metodene må du passe på tilfellene 1) den første fjernes, 2) den siste fjernes og 3)
+en verdi mellom to andre fjernes. Alle neste- og forrige-pekere må være korrekte etter
+fjerningen. Variabelen antall skal også reduseres og variabelen endringer økes. Sjekk
+også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
+     */
     @Override
     public boolean fjern(T verdi) {
-        
+
         if (verdi == null) {    // ingen nullverdier i listen
             return false;
         }
 
-        Node<T> n = hode, prev = null; // hjelpepekere
+        Node<T> n = hode;
+        Node<T> p;
+        Node<T> q;
 
-        while (n != null) { // q skal finne verdien t
+        while (n != null) {
             if (n.verdi.equals(verdi)) {
                 break;
             }
-            prev = n;
-            n = n.neste;
+            n = n.neste; //flytter n til n.neste
         }
 
         if (n == null) {   // fant ikke verdi
             return false;
-        } else if (n == hode) {
-            hode = hode.neste;
         } else {
-            prev.neste = n.neste;
+            if (n == hode) { // første verdi skal fjernes
+                q = n.neste;
+                hode = q;
+                q.forrige = null;
+            } else if (n.neste == null) { //siste verdi skal fjernes
+                p = n.forrige;
+                hale = p;
+                p.neste = null;
+            } else { //mellom to verdier
+                q = n.neste;
+                p = n.forrige;
+
+                p.neste = q;
+                q.forrige = p;
+
+            }
+
+            n.verdi = null;
+            n.neste = null;
+            n.forrige = null;
+
+            endringer++;                        // fjerning er en endring
+            antall--;
+
+            if (antall == 0) {
+                hode = hale = null;
+            }
+
+            return true;
         }
 
-        if (n == hale) {
-            hale = prev;
-        }
-
-        n.verdi = null;
-        n.neste = null;
-
-        endringer++;                        // fjerning er en endring
-        antall--;
-
-        return true;
-
-         
     }
 
     // Skal fjerne (og returnere) verdien på posisjon indeks (som først må sjekkes).
