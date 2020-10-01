@@ -290,10 +290,14 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
                 q = n.neste;
                 hode = q;
                 q.forrige = null;
-            } else if (n.neste == null) { //siste verdi skal fjernes
+                n.verdi = null;
+                n.neste = null;
+            } else if (n == hale) { //siste verdi skal fjernes
                 p = n.forrige;
                 hale = p;
                 p.neste = null;
+                n.verdi = null;
+                n.forrige = null;
             } else { //mellom to verdier
                 q = n.neste;
                 p = n.forrige;
@@ -301,11 +305,11 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
                 p.neste = q;
                 q.forrige = p;
 
+                n.verdi = null;
+                n.neste = null;
+                n.forrige = null;
             }
 
-            n.verdi = null;
-            n.neste = null;
-            n.forrige = null;
 
             endringer++;                        // fjerning er en endring
             antall--;
@@ -313,6 +317,7 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
             if (antall == 0) {
                 hode = hale = null;
             }
+
 
             return true;
         }

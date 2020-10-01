@@ -8,10 +8,10 @@ public class Main {
         liste.leggInn("En");
         liste.leggInn("To");
         liste.leggInn("Tre");
-        liste.leggInn("En");
+        liste.leggInn("To");
 
 
-        liste.fjern("En");
+        liste.fjern("Tre");
         System.out.println(liste);
         System.out.println(liste.omvendtString());
     }
