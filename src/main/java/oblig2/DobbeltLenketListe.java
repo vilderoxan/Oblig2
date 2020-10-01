@@ -444,13 +444,25 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
         return s.toString();
     }
 
+
     @Override
     public Iterator<T> iterator() {
         return new DobbeltLenketListeIterator();
     }
 
+    /*
+Lag til slutt metoden Iterator<T> iterator(int indeks) . Det må først sjekkes at
+indeksen er lovlig. Bruk metoden indeksKontroll () . Deretter skal den ved hjelp av
+konstruktøren i punkt c) returnere en instans av iteratorklassen.
+Nå vil default -metoden void forEach(Consumer<? super T> handling) i grensesnittet
+Iterable virke. En vanlig forAlle-løkke bruker implisitt en iterator. Sjekk at følgende kode
+virker for deg:
+     */
+
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        DobbeltLenketListeIterator dobbeltLenketListeIterator = new DobbeltLenketListeIterator(indeks);
+        return dobbeltLenketListeIterator;
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -463,6 +475,12 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
+
+        /*
+Lag konstruktøren private DobbeltLenketListeIterator(int indeks) . Den skal sette
+pekeren denne til den noden som hører til den oppgitte indeksen. Resten skal være som i
+den konstruktøren som er ferdigkodet.
+         */
 
         private DobbeltLenketListeIterator(int indeks) {
             Node<T> n = finnNode(indeks);
@@ -495,9 +513,9 @@ settes fjernOK til sann/true, verdien til denne returneres og denne flyttes til 
 
             fjernOK = true;            // nå kan remove() kalles
 
-
             T denneVerdi = denne.verdi;    // tar vare på verdien i p
             denne = denne.neste;               // flytter p til den neste noden
+
 
             return denneVerdi;         // returnerer verdien
         }
