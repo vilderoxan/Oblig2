@@ -324,15 +324,6 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
     }
 
-    // Skal fjerne (og returnere) verdien på posisjon indeks (som først må sjekkes).
-
-    /*I begge metodene må du passe på tilfellene 1) den første fjernes, 2) den siste fjernes og 3)
-    en verdi mellom to andre fjernes. Alle neste- og forrige-pekere må være korrekte etter
-    fjerningen. Variabelen antall skal også reduseres og variabelen endringer økes. Sjekk
-    også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet. Bruk
-    metodene toString() og omvendtString() til å sjekke at alle pekerne er satt riktig.
-
-     */
 
     @Override
     public T fjern(int indeks) {
@@ -398,24 +389,6 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
         endringer++;
     }
 
-
-
-    /*
-     @Override
-    public void nullstill() {
-        Node<T> p = hode, q = null;
-
-        while (p != null) {
-            q = p.neste;
-            p.neste = null;
-            p.verdi = null;
-            p = q;
-        }
-
-        hode = hale = null;
-        antall = 0;
-    }
-     */
 
     @Override
     public String toString() {
@@ -491,9 +464,28 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
             return denne != null;
         }
 
+        /*
+Lag metoden T next() . Den skal først sjekke om iteratorendringer er lik endringer .
+Hvis ikke, kastes en ConcurrentModificationException . Så en NoSuchElementException
+hvis det ikke er flere igjen i listen (dvs. hvis hasNext () ikke er sann/true). Deretter
+settes fjernOK til sann/true, verdien til denne returneres og denne flyttes til den neste node.
+         */
+
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if (endringer != iteratorendringer)
+                throw new ConcurrentModificationException("Listen er endret!");
+
+            if (!hasNext()) throw new
+                    NoSuchElementException("Tomt eller ingen verdier igjen!");
+
+            fjernOK = true;            // nå kan remove() kalles
+            
+            Node<T> p = null;
+            T denneVerdi = p.verdi;    // tar vare på verdien i p
+            p = p.neste;               // flytter p til den neste noden
+
+            return denneVerdi;         // returnerer verdien
         }
 
         @Override
