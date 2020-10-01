@@ -6,7 +6,7 @@ public class Main {
         DobbeltLenketListe<Integer> liste2 = new DobbeltLenketListe<>();
 
 
-        for(int i = 0; i < 100000; i++){
+        for(int i = 0; i < 10; i++){
             liste.leggInn(i);
         }
         long tid1 = System.currentTimeMillis();
@@ -16,7 +16,7 @@ public class Main {
 
 
 
-        for(int i = 0; i < 100000; i++){
+        for(int i = 0; i < 10; i++){
             liste2.leggInn(i);
         }
         long tid2 = System.currentTimeMillis();
