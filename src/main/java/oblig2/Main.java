@@ -3,11 +3,20 @@ package oblig2;
 public class Main {
     public static void main(String[] args) {
 
-        String[] navn = {"Lars", "Anders", "Bodil", "Kari", "Per", "Berit"};
+        String[] navn = {"Lars"};
         Liste<String> liste = new DobbeltLenketListe<>(navn);
-        liste.forEach(s -> System.out.print(s + " "));
-        System.out.println();
-        for (String s : liste) System.out.print(s + " ");
+
+        System.out.println(liste);
+
+        liste.fjern("Lars");
+        System.out.println(liste);
+
+        liste.fjern("Per");
+        System.out.println(liste);
+
+        liste.fjern("Berit");
+        System.out.println(liste);
+
 // Utskrift:
 // Lars Anders Bodil Kari Per Berit
 // Lars Anders Bodil Kari Per Berit

@@ -134,7 +134,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return antall == 0;
     }
 
-    //Hvorfor skal metoden alltid returnere true? Da kan den like så gjerne være void!
+    //Hvorfor skal metoden leggInn alltid returnere true?
+    // Da kan den like så gjerne være void!?
 
     @Override
     public boolean leggInn(T verdi) {// verdi legges bakerst
@@ -259,12 +260,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-    /*
-I begge metodene må du passe på tilfellene 1) den første fjernes, 2) den siste fjernes og 3)
-en verdi mellom to andre fjernes. Alle neste- og forrige-pekere må være korrekte etter
-fjerningen. Variabelen antall skal også reduseres og variabelen endringer økes. Sjekk
-også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
-     */
     @Override
     public boolean fjern(T verdi) {
 
@@ -273,9 +268,6 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
         }
 
         Node<T> n = hode;
-        Node<T> p;
-        Node<T> q;
-
         while (n != null) {
             if (n.verdi.equals(verdi)) {
                 break;
@@ -285,54 +277,37 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
         if (n == null) {   // fant ikke verdi
             return false;
-        } else {
-            if (n == hode) { // første verdi skal fjernes
-                q = n.neste;
-                hode = q;
-                q.forrige = null;
-                n.verdi = null;
-                n.neste = null;
-            } else if (n == hale) { //siste verdi skal fjernes
-                p = n.forrige;
-                hale = p;
-                p.neste = null;
-                n.verdi = null;
-                n.forrige = null;
-            } else { //mellom to verdier
-                q = n.neste;
-                p = n.forrige;
-
-                p.neste = q;
-                q.forrige = p;
-
-                n.verdi = null;
-                n.neste = null;
-                n.forrige = null;
-            }
-
-
-            endringer++;                        // fjerning er en endring
-            antall--;
-
-            if (antall == 0) {
-                hode = hale = null;
-            }
-
-
-            return true;
         }
 
+        if (antall == 1) {
+            hode = hale = null;
+        } else {
+            if (n.forrige == null) {
+                // fant i første node
+                hode = n.neste;
+                hode.forrige = null;
+            } else if (n.neste == null) {
+                // fant i siste node
+                hale = n.forrige;
+                hale.neste = null;
+            } else {
+                // fant midt i
+                Node<T> p = n.forrige;
+                Node<T> q = n.neste;
+                p.neste = q;
+                q.forrige = p;
+            }
+        }
+
+        n.neste = null;
+        n.forrige = null;
+        n.verdi = null;
+
+        endringer++;
+        antall--;
+        return true;
     }
 
-    // Skal fjerne (og returnere) verdien på posisjon indeks (som først må sjekkes).
-
-    /*I begge metodene må du passe på tilfellene 1) den første fjernes, 2) den siste fjernes og 3)
-    en verdi mellom to andre fjernes. Alle neste- og forrige-pekere må være korrekte etter
-    fjerningen. Variabelen antall skal også reduseres og variabelen endringer økes. Sjekk
-    også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet. Bruk
-    metodene toString() og omvendtString() til å sjekke at alle pekerne er satt riktig.
-
-     */
 
     @Override
     public T fjern(int indeks) {
@@ -344,29 +319,26 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
         Node<T> n = finnNode(indeks);
 
-
-        if (indeks == 0) {
-            hode = n.neste;
-            n.neste.forrige = null;
-        } else if (n.neste == null) {
-            hale = n.forrige;
-            n.forrige.neste = null;
-        } else {
-            Node<T> p = n.forrige;
-            Node<T> r = n.neste;
-
-            p.neste = r;
-            r.forrige = p;
-        }
-
-        if (antall == 0) {
+        if (antall == 1) {
             hode = hale = null;
+        } else {
+            if (n.forrige == null) {
+                //noden er den første
+                hode = n.neste;
+                hode.forrige = null;
+            } else if (n.neste == null) {
+                hale = n.forrige;
+                hale.neste = null;
+            } else {
+                Node<T> p = n.forrige;
+                Node<T> q = n.neste;
+                p.neste = q;
+                q.forrige = p;
+            }
         }
-
 
         antall--;
         endringer++;
-
 
         return n.verdi;
     }
@@ -389,6 +361,7 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
         endringer++;
     }
 
+    // Andre versjon an nullstill-metoden. Denne er mindre effektiv enn den ovenfor
     public void nullstill2() {
         for (int i = 0; i < antall; i++) {
             fjern(i);
@@ -405,7 +378,7 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
         s.append('[');
 
-        if (!tom()) {
+        if (antall > 0) {
             Node<T> p = hode;
             s.append(p.verdi);
 
@@ -450,14 +423,6 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
         return new DobbeltLenketListeIterator();
     }
 
-    /*
-Lag til slutt metoden Iterator<T> iterator(int indeks) . Det må først sjekkes at
-indeksen er lovlig. Bruk metoden indeksKontroll () . Deretter skal den ved hjelp av
-konstruktøren i punkt c) returnere en instans av iteratorklassen.
-Nå vil default -metoden void forEach(Consumer<? super T> handling) i grensesnittet
-Iterable virke. En vanlig forAlle-løkke bruker implisitt en iterator. Sjekk at følgende kode
-virker for deg:
-     */
 
     public Iterator<T> iterator(int indeks) {
         indeksKontroll(indeks, false);
@@ -476,11 +441,6 @@ virker for deg:
             iteratorendringer = endringer;  // teller endringer
         }
 
-        /*
-Lag konstruktøren private DobbeltLenketListeIterator(int indeks) . Den skal sette
-pekeren denne til den noden som hører til den oppgitte indeksen. Resten skal være som i
-den konstruktøren som er ferdigkodet.
-         */
 
         private DobbeltLenketListeIterator(int indeks) {
             Node<T> n = finnNode(indeks);
@@ -496,12 +456,6 @@ den konstruktøren som er ferdigkodet.
             return denne != null;
         }
 
-        /*
-Lag metoden T next() . Den skal først sjekke om iteratorendringer er lik endringer .
-Hvis ikke, kastes en ConcurrentModificationException . Så en NoSuchElementException
-hvis det ikke er flere igjen i listen (dvs. hvis hasNext () ikke er sann/true). Deretter
-settes fjernOK til sann/true, verdien til denne returneres og denne flyttes til den neste node.
-         */
 
         @Override
         public T next() {
