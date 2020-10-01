@@ -4,17 +4,15 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Liste<Integer> liste = new DobbeltLenketListe<>();
-        liste.leggInn(1);
-        liste.leggInn(2);
-        liste.leggInn(3);
+        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>();
+        liste.leggInn("En");
+        liste.leggInn("To");
+        liste.leggInn("Tre");
+        liste.leggInn("En");
 
 
-        liste.leggInn(0, 10);
+        liste.fjern("En");
         System.out.println(liste);
-        liste.leggInn(4, 10);
-        System.out.println(liste);
-        liste.leggInn(2, 10);
-        System.out.println(liste);
+        System.out.println(liste.omvendtString());
     }
 }
