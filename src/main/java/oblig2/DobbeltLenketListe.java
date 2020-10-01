@@ -324,6 +324,15 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
     }
 
+    // Skal fjerne (og returnere) verdien på posisjon indeks (som først må sjekkes).
+
+    /*I begge metodene må du passe på tilfellene 1) den første fjernes, 2) den siste fjernes og 3)
+    en verdi mellom to andre fjernes. Alle neste- og forrige-pekere må være korrekte etter
+    fjerningen. Variabelen antall skal også reduseres og variabelen endringer økes. Sjekk
+    også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet. Bruk
+    metodene toString() og omvendtString() til å sjekke at alle pekerne er satt riktig.
+
+     */
 
     @Override
     public T fjern(int indeks) {
@@ -437,7 +446,7 @@ også tilfellet at listen blir tom etter fjerningen, blir korrekt behandlet.
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -480,10 +489,10 @@ settes fjernOK til sann/true, verdien til denne returneres og denne flyttes til 
                     NoSuchElementException("Tomt eller ingen verdier igjen!");
 
             fjernOK = true;            // nå kan remove() kalles
-            
-            Node<T> p = null;
-            T denneVerdi = p.verdi;    // tar vare på verdien i p
-            p = p.neste;               // flytter p til den neste noden
+
+
+            T denneVerdi = denne.verdi;    // tar vare på verdien i p
+            denne = denne.neste;               // flytter p til den neste noden
 
             return denneVerdi;         // returnerer verdien
         }
