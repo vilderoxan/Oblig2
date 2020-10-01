@@ -63,6 +63,18 @@ Her gjorde vi det samme som i toString-metoden, men startet fra halen og endre n
 til forrigepeker.
 
 
+* Oppgave 7:
+Kod den på to måter og velg den som er mest effektiv (gjør tidsmålinger):
+
+Vi har kodet begge alternativene. Metoden som er kodet direkte uten å kalle på metoden fjern
+bruker gjennomsnittlig halvparten så lang tid når vi kjører testen. Vi prøvde å teste dette i main med en metode som måler tid
+og da er det også metoden som bruker fjern() som bruker lengst tid. 
+
+2000ms vs. 3ms
+
+Metodekall er mer inneffektivt enn direkte kode
+
+
 
 
 
