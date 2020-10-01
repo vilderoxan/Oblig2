@@ -75,6 +75,17 @@ og da er det også metoden som bruker fjern() som bruker lengst tid.
 Metodekall er mer inneffektivt enn direkte kode
 
 
+* Oppgave 8:
+
+Vi har løst oppgave 8 akkurat som beskrevet og utskriften gir:
+
+Lars Anders Bodil Kari Per Berit 
+Lars Anders Bodil Kari Per Berit
+
+Dette er korrekt. 
+Vi får likevel feil i test 8w og skjønner ikke hvorfor
+
+
 
 
 
