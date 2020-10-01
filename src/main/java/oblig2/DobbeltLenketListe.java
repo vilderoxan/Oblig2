@@ -3,17 +3,12 @@ package oblig2;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
-
-import javax.swing.*;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
-import java.util.StringJoiner;
 
 import java.util.Iterator;
 import java.util.Objects;
-import java.util.function.Predicate;
-
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
@@ -346,7 +341,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void nullstill() {
         Node<T> p = hode;
-        Node<T> q = null;
+        Node<T> q;
 
 
         while (p != null) {
@@ -426,8 +421,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Iterator<T> iterator(int indeks) {
         indeksKontroll(indeks, false);
-        DobbeltLenketListeIterator dobbeltLenketListeIterator = new DobbeltLenketListeIterator(indeks);
-        return dobbeltLenketListeIterator;
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -443,8 +437,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
         private DobbeltLenketListeIterator(int indeks) {
-            Node<T> n = finnNode(indeks);
-            denne = n;
+            denne = finnNode(indeks);
 
             denne = hode;     // p starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
@@ -467,9 +460,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             fjernOK = true;            // nå kan remove() kalles
 
-            T denneVerdi = denne.verdi;    // tar vare på verdien i p
-            denne = denne.neste;               // flytter p til den neste noden
-
+            T denneVerdi = denne.verdi;    // tar vare på verdien
+            denne = denne.neste;               // flytter denne til den neste noden
 
             return denneVerdi;         // returnerer verdien
         }
