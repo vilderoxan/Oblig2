@@ -180,3 +180,6 @@ Dette er altså korrekt.
 Vi får likevel feil i test 8w (T next()) og skjønner ikke hvorfor.
 
 NB! Spør på lab
+
+
+Warnings:
