@@ -3,6 +3,7 @@ package oblig2;
 public class Main {
     public static void main(String[] args) {
 
+
         String[] navn = {"Lars"};
         Liste<String> liste = new DobbeltLenketListe<>(navn);
 

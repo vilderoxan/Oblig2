@@ -81,7 +81,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         fratilKontroll(antall, fra, til);
         DobbeltLenketListe<T> subliste = new DobbeltLenketListe<>();
 
-        int antall = 0;
 
         if (tom() || fra == til) {
             return subliste;
@@ -459,10 +458,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            if (endringer != iteratorendringer)
+            if (iteratorendringer != endringer)
                 throw new ConcurrentModificationException("Listen er endret!");
 
-            if (!hasNext()) throw new
+            else if (!hasNext()) throw new
                     NoSuchElementException("Tomt eller ingen verdier igjen!");
 
             fjernOK = true;            // nå kan remove() kalles

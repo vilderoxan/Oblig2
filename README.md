@@ -21,10 +21,8 @@ Vi har brukt git til å dokumentere arbeidet vårt.
 Vi har ...? commits totalt, og hver logg-melding beskriver det vi har gjort av endringer.
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
-* Per har hatt hovedansvar for oppgave 1, 3, og 5. 
-* Else har hatt hovedansvar for oppgave 2, 4, og 6. 
-* Fatima har hatt hovedansvar for oppgave 7 og 8. 
-* Vi har i fellesskap løst oppgave 10. 
+* Vi har jobbet veldig tett sammen
+* Selv om vi noen ganger har jobbet hver for oss så har vi samarbeidet om hver metode
 
 # Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave)
 
@@ -62,9 +60,84 @@ While løkke valgte vi fordi man kan gjøre det så lenge Node ikke er null. Sis
 Her gjorde vi det samme som i toString-metoden, men startet fra halen og endre nestepeker
 til forrigepeker.
 
+* Oppgave 3a:
 
+#finnNode(int indeks):
+
+Her fant vi først midten og løp igjennom en av "sidene" basert på indeks > eller < enn midten.
+Hvis indeks er større enn midten løper vi fra hale og mot midten. Hvis indeks er mindre enn midten løper vi fra hode til midten
+Vi valgte en for løkke for å itterere gjennom listen.
+
+# T hent(int indeks):
+
+Vi vlagte å kalle på finnNode(indeks) for å finne noden på gitte indeks og returnerer verdien til Noden hvis vi finner den.
+Hvis ikke returnerer den null.
+
+#T oppdater(int indeks, T nyVerdi):
+
+Vi finner Noden ved hjelp av finnNode(int indeks)
+Dermed mellomlagrer vi verdien til en variabel (gammelVerdi) og setter ny verdi til Noden vi har funnet.
+Metoden returnerer gammelVerdi.
+
+
+* Oppgave 3b:
+
+# subliste(int fra, int til):
+
+Sjekker alle feilsitasjoner og om listen er tom eller om intervallet er tom. Da returnerer vi et en tom liste.
+
+Vi finner node på den første plassen vi er interessert i ved hjelp av en for-løkke. Legger til noden på indeks "fra"
+Dermed løper vi igjennom intervallet "fra + 1" til den siste indeksen og legger til alle verdiene.
+
+NB! Sjekk dette!
+#!Vi tenker at antall fortsatt er lik antall i den opprinnelige listen. Intervallet vi skriver ut forandrer ikke listen men zoomer inn på et visst antall noder.
+Listen er fortsatt lik og endringer = 0;
+
+
+*Oppgave 4:
+
+#int indeksTil(T verdi):
+
+Først returnerer sjekker vi om verdien er null. I såfall returnerer vi -1.
+
+Hvis ikke null, løper vi fra hode til antall med en for-løkke og sjekker om verdien til noden er lik verdien som sendes inn og returnerer indeks.
+Om verdien ikke finnes returnerer vi også -1.
+
+#boolean inneholder(T verdi):
+
+Her sjekker vi om indeksTil(T verdi) returner -1. I såfall returnerer vi false.
+Hvis indeksTil(T verdi) returnerer indeks så returnerer metoden true fordi listen inneholder verdien.
+
+
+*Oppgave 5:
+
+#void leggInn(int indeks, T verdi):
+
+NB! Sjekk om min eller Mikael sin versjon skal stå på lab!!
+
+*Oppgave 6:
+
+# T fjern(int indeks)
+Antall kan ikke være større enn indeks. Kaster exception.
+Sjekker om listen er tom. I såfall kaster vi exception (ingenting kan fjernes).
+
+Dermed kaller på metoden finnNode(indeks) og sjekker om noden ligger først, bakerst eller mellom
+to noder. Vi sjekker også om det kun er en node. Da skal hode være lik hale = null.
+
+#boolean fjern(T verdi)
+
+Returnerer false hvis verdi == null.
+
+Bruker dermed while-løkke for å løpe igjennom listen så lenge noden ikke er null. 
+Breaker ut dersom vi finner verdi. Da har vi funnet noden.
+
+Dermed sjekker vi om noden ligger først, sist eller mellom to noder og oppdaterer pekere deretter og nuller ut verdien til noden som skal fjernes
+
+
+ 
 * Oppgave 7:
-Kod den på to måter og velg den som er mest effektiv (gjør tidsmålinger):
+
+#void nullstill():
 
 Vi har kodet begge alternativene. Metoden som er kodet direkte uten å kalle på metoden fjern
 bruker gjennomsnittlig halvparten så lang tid når vi kjører testen. Vi prøvde å teste dette i main med en metode som måler tid
@@ -72,8 +145,29 @@ og da er det også metoden som bruker fjern() som bruker lengst tid.
 
 2000ms vs. 3ms
 
-Metodekall er mer inneffektivt enn direkte kode
+Metodekall er mer inneffektivt enn direkte kode.
 
+Vi testet det slik i main:
+
+DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+DobbeltLenketListe<Integer> liste2 = new DobbeltLenketListe<>();
+
+
+        for(int i = 0; i < 10; i++){
+            liste.leggInn(i);
+        }
+        long tid1 = System.currentTimeMillis();
+        liste.nullstill();
+        tid1 = System.currentTimeMillis() - tid1;
+        System.out.println(tid1);
+
+        for(int i = 0; i < 10; i++){
+            liste2.leggInn(i);
+        }
+        long tid2 = System.currentTimeMillis();
+        liste2.nullstill2();
+        tid2 = System.currentTimeMillis() - tid2;
+        System.out.println(tid2);
 
 * Oppgave 8:
 
@@ -82,10 +176,7 @@ Vi har løst oppgave 8 akkurat som beskrevet og utskriften gir:
 Lars Anders Bodil Kari Per Berit 
 Lars Anders Bodil Kari Per Berit
 
-Dette er korrekt. 
-Vi får likevel feil i test 8w og skjønner ikke hvorfor
+Dette er altså korrekt. 
+Vi får likevel feil i test 8w (T next()) og skjønner ikke hvorfor.
 
-
-
-
-
+NB! Spør på lab
