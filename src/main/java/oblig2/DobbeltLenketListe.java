@@ -100,7 +100,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         subliste.endringer = 0;
 
 
-
         return subliste;
     }
 

@@ -114,8 +114,13 @@ Hvis indeksTil(T verdi) returnerer indeks så returnerer metoden true fordi list
 # Oppgave 5:
 
 *void leggInn(int indeks, T verdi):
+Sjekker først for nullverdier og setter indekskontroll til true: hvor indeks = antall er lovlig. Sjekker
+dette tilfellet hvor indeks == antall når antall er null og ellers (ingen noder skal flyttes). 
 
-NB! Sjekk om min eller Mikael sin versjon skal stå på lab!!
+Sjekker deretter tilfelle hvor indeks != antall når noden legger inn først, bakerst og i mellom (node må flyttes). 
+Flyttet pekere tilsvarende og deretter øker antall og endringer.
+
+
 
 # Oppgave 6:
 
