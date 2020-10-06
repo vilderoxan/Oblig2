@@ -89,9 +89,10 @@ Sjekker alle feilsitasjoner og om listen er tom eller om intervallet er tom. Da 
 Vi finner node på den første plassen vi er interessert i ved hjelp av en for-løkke. Legger til noden på indeks "fra"
 Dermed løper vi igjennom intervallet "fra + 1" til den siste indeksen og legger til alle verdiene.
 
-NB! Sjekk dette!
-#!Vi tenker at antall fortsatt er lik antall i den opprinnelige listen. Intervallet vi skriver ut forandrer ikke listen men zoomer inn på et visst antall noder.
-Listen er fortsatt lik og endringer = 0;
+Vi tenker at antall må være lik antall noder i buslisten [fra: til> men når vi setter antall lik 0 og dermed
+øker antall for hver node vil legger til så feiler testen. Når vi ikke oppdaterer antall så går testen igjennom.
+
+Vi setter endringer = 0 fordi det er en ny liste. 
 
 
 #Oppgave 4:

@@ -99,6 +99,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         endringer = 0;
 
+
         return subliste;
     }
 
