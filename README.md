@@ -86,13 +86,12 @@ Metoden returnerer gammelVerdi.
 
 Sjekker alle feilsitasjoner og om listen er tom eller om intervallet er tom. Da returnerer vi et en tom liste.
 
-Vi finner node på den første plassen vi er interessert i ved hjelp av en for-løkke. Legger til noden på indeks "fra"
+Vi finner noden på den første plassen vi er interessert i ved hjelp av en for-løkke. Legger til noden på indeks "fra"
 Dermed løper vi igjennom intervallet "fra + 1" til den siste indeksen og legger til alle verdiene.
 
-Vi tenker at antall må være lik antall noder i buslisten [fra: til> men når vi setter antall lik 0 og dermed
-øker antall for hver node vil legger til så feiler testen. Når vi ikke oppdaterer antall så går testen igjennom.
+Siden vi kaller på metoden leggInn(verdi) vil antall oppdateres via denne metoden.
 
-Vi setter endringer = 0 fordi det er en ny liste. 
+Vi setter subliste.endringer = 0 fordi det er en ny liste uten endringer. 
 
 
 #Oppgave 4:
