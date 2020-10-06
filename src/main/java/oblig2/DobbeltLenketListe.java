@@ -97,7 +97,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             current = current.neste;
         }
 
-        endringer = 0;
+        subliste.endringer = 0;
+
+
 
         return subliste;
     }

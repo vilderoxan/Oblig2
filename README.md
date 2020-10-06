@@ -86,12 +86,12 @@ Metoden returnerer gammelVerdi.
 
 Sjekker alle feilsitasjoner og om listen er tom eller om intervallet er tom. Da returnerer vi et en tom liste.
 
-Vi finner node på den første plassen vi er interessert i ved hjelp av en for-løkke. Legger til noden på indeks "fra"
+Vi finner noden på den første plassen vi er interessert i ved hjelp av en for-løkke. Legger til noden på indeks "fra"
 Dermed løper vi igjennom intervallet "fra + 1" til den siste indeksen og legger til alle verdiene.
 
-NB! Sjekk dette!
-#!Vi tenker at antall fortsatt er lik antall i den opprinnelige listen. Intervallet vi skriver ut forandrer ikke listen men zoomer inn på et visst antall noder.
-Listen er fortsatt lik og endringer = 0;
+Siden vi kaller på metoden leggInn(verdi) vil antall oppdateres via denne metoden.
+
+Vi setter subliste.endringer = 0 fordi det er en ny liste uten endringer. 
 
 
 #Oppgave 4:
