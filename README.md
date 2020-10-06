@@ -26,6 +26,8 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 
 # Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave)
 
+Oppgavene 1-8 består den utleverte testen. Vi har ikke implementert oppgave 9 og 10
+
 # Oppgave 1: Løste ved å implementere..
 
 *int antall():
