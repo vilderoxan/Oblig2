@@ -94,7 +94,7 @@ Siden vi kaller på metoden leggInn(verdi) vil antall oppdateres via denne metod
 Vi setter subliste.endringer = 0 fordi det er en ny liste uten endringer. 
 
 
-#Oppgave 4:
+# Oppgave 4:
 
 *int indeksTil(T verdi):
 
@@ -109,13 +109,13 @@ Her sjekker vi om indeksTil(T verdi) returner -1. I såfall returnerer vi false.
 Hvis indeksTil(T verdi) returnerer indeks så returnerer metoden true fordi listen inneholder verdien.
 
 
-#Oppgave 5:
+# Oppgave 5:
 
 *void leggInn(int indeks, T verdi):
 
 NB! Sjekk om min eller Mikael sin versjon skal stå på lab!!
 
-#Oppgave 6:
+# Oppgave 6:
 
 *T fjern(int indeks)
 Antall kan ikke være større enn indeks. Kaster exception.
@@ -169,7 +169,7 @@ DobbeltLenketListe<Integer> liste2 = new DobbeltLenketListe<>();
         tid2 = System.currentTimeMillis() - tid2;
         System.out.println(tid2);
 
-#Oppgave 8:
+# Oppgave 8:
 
 *T next()
 Først tar vi av oss feilsituasjoner: endringer != itteratorendringer samt dersom listen ikke har flere elementer igjen.
@@ -181,7 +181,7 @@ Her valgte vi å kalle på metoden finnNode(indeks) for å sette noden til varib
 *Iterator<T> iterator(int indeks)
 Sjekker at indeksen er lovlig vha metoden indekskontroll. Hvis lovlig returnerer metoden en instans av DobbeltlenketlisteItterator med indeksen som argument
 
-#Warnings:
+# Warnings:
 
 Vi har 9 warnings. Noen av de sier at metodene i DobbeltlenketListe bør være private.
 Resten sier at noen varibaler kan gi nullpointerexception. Siden alle testene består gjør
